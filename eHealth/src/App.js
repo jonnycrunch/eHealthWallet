@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 
 class App extends Component {
   render() {
@@ -13,7 +14,7 @@ class App extends Component {
         <p className="App-intro">
     <div class="jumbotron">
       <h1>
-        Hello, @user
+        Hello, @user  
       </h1>
       <p>
         Tell me about your medical record

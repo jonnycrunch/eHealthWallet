@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "server side code for restful api enpoints for our eHealthWallet app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonnycrunch/eHealthWallet.git"
+  },
+  "keywords": [
+    "blockchain",
+    "healthcare",
+    "digital",
+    "wallet",
+    "uPort"
+  ],
+  "author": "jonnycrunch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonnycrunch/eHealthWallet/issues"
+  },
+  "homepage": "https://github.com/jonnycrunch/eHealthWallet#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
