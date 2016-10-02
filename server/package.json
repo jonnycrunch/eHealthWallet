@@ -28,6 +28,13 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "foreman": "^2.0.0",
-    "request": "^2.75.0"
+    "ipfs-api": "^9.0.0",
+    "request": "^2.75.0",
+    "web3": "^0.17.0-beta", 
+    "bigi": "^1.4.1",
+    "bitcoinjs-lib": "^2.2.0",
+    "blockstack-profiles": "^0.3.5",
+    "uport-registry": "^1.2.5"
+
   }
 }
