@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:3001/", 
+  "proxy": "http://localhost:3001/",
   "name": "eHealth",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +10,8 @@
     "bootstrap": "^3.3.7",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.3",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "web3": "^0.17.0-beta"
   },
   "scripts": {
     "start": "react-scripts start",
