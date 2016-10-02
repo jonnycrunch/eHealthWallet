@@ -13,6 +13,24 @@ let web3 = new Web3();
 let web3Prov = new web3.providers.HttpProvider('http://10.0.1.80:8545')
 let ipfsProv = ipfsApi('localhost', 5001)
 
+var hashclient = require('hashapi-lib-node');
+
+// this needs to be in env variable 
+var T_username = process.env.TIERION_USER ;
+var T_password = process.env.TIERION_PASS ; 
+var hashClient = new hashclient();
+
+
+// basic test of the hash function to authenticate properly 
+hashClient.authenticate(T_username, T_password, function(err, authToken){
+    if(err) {
+        console.log("I'm sorry Dave, my systems are not working!"); 
+    } else {
+        console.log("Looking good!"); 
+    }
+});
+
+
 // saved a cached version just to be safe for the hackathon demo 
 var fhir_file_conditions1 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/conditions1.json'; 
 var fhir_file_medications1 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/medications1.json'; 
@@ -52,7 +70,7 @@ app.get('/api/westclinic/conditions', function(req, res) {
     };
     var conditions = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'Condition' ) { 
@@ -80,7 +98,7 @@ app.get('/api/westclinic/medications', function(req, res) {
     };
     var medications = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'MedicationOrder' ) { 
@@ -108,7 +126,7 @@ app.get('/api/westclinic/allergies', function(req, res) {
     };
     var allergies = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'AllergyIntolerance' ) { 
@@ -135,7 +153,7 @@ app.get('/api/eastclinic/conditions', function(req, res) {
     };
     var conditions = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'Condition' ) { 
@@ -163,7 +181,7 @@ app.get('/api/eastclinic/medications', function(req, res) {
     };
     var medications = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'MedicationOrder' ) { 
@@ -191,7 +209,7 @@ app.get('/api/eastclinic/allergies', function(req, res) {
     };
     var allergies = [] ;  // just a placeholder to store the conditions. 
     request(options, function (error, response, body) {
-    data = JSON.parse(body); 
+    var data = JSON.parse(body); 
     if (!error && response.statusCode == 200) {
         data.entry.forEach( function(item, value){ 
             if (item.resource.resourceType === 'AllergyIntolerance' ) { 
@@ -225,7 +243,7 @@ app.post('/api/verifyclaims', jsonParser,  function(req, res) {
 
 
 // this is saving the health care attribute to the blockchain with storage on ipfs 
-app.get('/api/makeclaim', jsonParser,  function(req, res) { 
+app.post('/api/makeclaim', jsonParser,  function(req, res) { 
     if (!req.body) return res.sendStatus(400)
     payload = req.body; 
     var eth_add = payload.address; 
