@@ -13,10 +13,15 @@ let web3 = new Web3();
 let web3Prov = new web3.providers.HttpProvider('http://10.0.1.80:8545')
 let ipfsProv = ipfsApi('localhost', 5001)
 
-
+// saved a cached version just to be safe for the hackathon demo 
 var fhir_file_conditions1 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/conditions1.json'; 
 var fhir_file_medications1 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/medications1.json'; 
 var fhir_file_allergies1 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/allergies1.json'; 
+
+var fhir_file_conditions2 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/conditions2.json'; 
+var fhir_file_medications2 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/medications2.json'; 
+var fhir_file_allergies2 = '/data/home/distributed_health_hacker/distributed_health_dev/ui/server/fhir_files/allergies2.json'; 
+
 
 var conditions_url = 'https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Condition?patient=Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB&category=diagnosis' ; 
 var medications_url = 'https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/MedicationOrder?patient=Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB' ; 
