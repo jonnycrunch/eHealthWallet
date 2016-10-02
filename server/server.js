@@ -12,7 +12,7 @@ let ipfsApi = require('ipfs-api');
 let web3 = new Web3(); 
 let web3Prov = new web3.providers.HttpProvider('http://10.0.1.80:8545')
 let ipfsProv = ipfsApi('localhost', 5001)
-
+let crypto = require('crypto');
 var hashclient = require('hashapi-lib-node');
 
 // this needs to be in env variable 
@@ -21,12 +21,28 @@ var T_password = process.env.TIERION_PASS ;
 var hashClient = new hashclient();
 
 
+var T_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU3ZWZlMzM3M2IwZGIyMjE3ZTEwOTc4NSIsInJscyI6MywicmxoIjoxMDAwLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNDc1Mzg1NTU3LCJleHAiOjE0NzUzODkxNTcsImp0aSI6IjQyNGYyZWQ0Y2Y3YWQ1ZDE2ZjQ5MGU5ZTNkZGUyNWE5MTQ2NjJjYWEifQ.jCFvT0euMnuVjMMRqFuU30MWF18gsPLjxrbClAXajjc';   
+var t_rtoken = '91949a904467c8f5c2692b4f5097ba91b00c80aa'; 
 // basic test of the hash function to authenticate properly 
+
+
+
+// context for relationships in smart contract: http://hl7.org/fhir/v3/RoleCode  :  value where value could ONESELF or SPS or HUSB 
+
+// need to store password for encrypted data on the client side
+
+// on creating the profile in the client, store the json web token for future validation of the identy as a pseudo openID connect validation server 
+
+
+// Tierion will be used to create an audit trail for logging who accessed the restful API, storing the hash 
+// of the JSON bundle, along with the uport address of the person who was accessing it,  { accessor : eth_addr , fhir_payload : bundle, url: fhir_url  }
+// where the fhir_payload is the raw data from FHIR server 
 hashClient.authenticate(T_username, T_password, function(err, authToken){
     if(err) {
         console.log("I'm sorry Dave, my systems are not working!"); 
     } else {
-        console.log("Looking good!"); 
+        T_token = authToken.access_token; 
+        t_rtoken = authToken.refresh_token; 
     }
 });
 
@@ -45,6 +61,50 @@ var conditions_url = 'https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Condition?pat
 var medications_url = 'https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/MedicationOrder?patient=Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB' ; 
 var allergies_url = 'https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/AllergyIntolerance?patient=Tbt3KuCY0B5PSrJvCu2j-PlK.aiHsu2xUjUM8bWpetXoB' ; 
 
+
+// need to run the promise 
+function get_claim(attr, eth_addr, ipfsProv, web3Prov){
+    var persona = new Persona(eth_addr, ipfsProv, web3Prov);
+    return persona.getClaims(attr); 
+}
+
+
+
+// just a simple encryption method 
+// To DO : use PGP encryption 
+function encrypt(string, password, crypto){
+    var payload = JSON.stringify(string); 
+    const cipher = crypto.createCipher('aes192', password);
+    var encrypted = cipher.update(payload, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return encrypted; 
+}
+
+
+// just a simple decrypt method
+// To DO : use PGP encryption 
+function dencrypt(payload, password, crypto){
+    var decipher = crypto.createDecipher('aes192', password);
+    var decrypted = decipher.update(payload, 'hex', 'utf8');    
+    decrypted += decipher.final('utf8');
+    var = data = JSON.parse(decrypted); 
+    return data;  // this is not js object 
+}
+
+
+// need to pass the persona of the requester 
+// extract the first_name, last_name, email from person 
+function hipaa_log(eth_addr, url){ 
+    // call TIERION api and store the person accessing the recource (url)
+    
+}
+
+
+// this doesn't actually validate a user
+function validate_user(eth_addr, token) {
+    var myPersona = new Persona(eth_addr, ipfsProv, web3Prov);
+    return myPersona.isTokenValid(token); 
+}
 
 // sanity check to make sure api server works
 app.get('/', function (req, res) {

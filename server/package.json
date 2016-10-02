@@ -29,6 +29,7 @@
     "bitcoinjs-lib": "^2.2.0",
     "blockstack-profiles": "^0.3.5",
     "body-parser": "^1.15.2",
+    "crypto": "0.0.3",
     "express": "^4.14.0",
     "foreman": "^2.0.0",
     "hashapi-lib-node": "^1.2.0",
