@@ -10,11 +10,13 @@ let Persona = require('./dist/persona.js').default;
 let Web3 = require('web3'); 
 let ipfsApi = require('ipfs-api'); 
 let web3 = new Web3(); 
-let web3Prov = new web3.providers.HttpProvider('http://10.0.1.80:8545')
+let web3Prov = new web3.providers.HttpProvider('http://10.0.1.80:8545') // this is not the active stream 
+let myWeb3 = new Web3( )
+myWeb3.setProvider(new web3.providers.HttpProvider('http://10.0.1.80:8545'));  // this is now set 
 let ipfsProv = ipfsApi('localhost', 5001)
 let crypto = require('crypto');
 var hashclient = require('hashapi-lib-node');
-
+var shh = myWeb3.shh;  // set the whisper client 
 // this needs to be in env variable 
 var T_username = process.env.TIERION_USER ;
 var T_password = process.env.TIERION_PASS ; 
@@ -87,7 +89,7 @@ function dencrypt(payload, password, crypto){
     var decipher = crypto.createDecipher('aes192', password);
     var decrypted = decipher.update(payload, 'hex', 'utf8');    
     decrypted += decipher.final('utf8');
-    var = data = JSON.parse(decrypted); 
+    var data = JSON.parse(decrypted); 
     return data;  // this is not js object 
 }
 
@@ -313,7 +315,7 @@ app.post('/api/makeclaim', jsonParser,  function(req, res) {
     persona.setPublicSigningKey(myPrivSignKey);   // need to translate the priv key to public one 
     persona.addAttribute({ claim }, myPrivSignKey);
     persona.writeToRegistry().then((txHash) => { 
-        console.log(txHash) 
+        console.log(txHash); 
         res.sendStatus(200);  
     });
 });

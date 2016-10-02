@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"    rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css"    rel="stylesheet" type="text/css">
+    <title>React Tutorial</title>
+    <!-- Not present in the tutorial. Just for basic styling. -->
+
+    <script src="https://unpkg.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://unpkg.com/jquery@3.1.0/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/remarkable@1.6.2/dist/remarkable.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/babel">
+
+
+
+    var Welcome = React.createClass({
+      render : function(){
+        return (
+
+          <h2>Welcome to Dist_Health!</h2>
+        );
+      }
+    });
+
+    var Account = React.createClass({
+      render : function(){
+        return (
+
+          <h2>My Account</h2>
+        );
+      }
+    });
+
+    var Consent = React.createClass({
+      allow: function(){
+
+        alert("You want to allow");
+
+      },
+
+      revoke: function(){
+
+        alert("You want to revoke");
+      },
+
+      render : function(){
+        return(
+          <div className="container">
+        <div > Do you want to revoke?</div>
+        <button onClick= {this.allow} type="button" className="btn btn-success">Allow</button>
+         <button onClick = {this.revoke} type="button" className="btn btn-danger">Revoke</button>
+         </div>
+
+        )
+
+
+      }
+    });
+
+
+    var Input = React.createClass({
+
+      render : function (){
+
+        return(
+
+
+
+
+
+          
+        )
+
+        
+      }
+
+
+
+    
+
+      
+    });
+    
+
+    var DropDown = React.createClass({
+
+      getInitialState: function() {
+        return{active: false}
+      },
+
+      render : function(){
+        if (this.state.active == false){
+          
+        }
+
+        return( <div>
+          <div className="btn-group btn-group-lg" id="Obn">
+          <a className="active btn btn-primary dropdown-toggle" data-toggle="dropdown">Choose your provider <span className="fa fa-caret-down"></span></a>
+              <ul className="dropdown-menu" role="menu">
+                <li id="Provider A">
+                  <a href="#">@Provider A</a> // need to prepopulate them using an ajax/jquery call
+                </li>
+                <li id="Provider B">
+                  <a href="#">@ Provider B</a>
+                </li>
+              </ul>
+
+
+
+          </div>
+          </div>
+
+
+        )
+
+
+      }
+    });
+
+
+
+
+
+
+ReactDOM.render(<div> <Welcome /> <DropDown />
+      <Consent  /> </div>, document.getElementById('content'));
+    </script>
+  </body>
+</html>
