@@ -1,4 +1,4 @@
-# HealthySelfie eHealthWallet
+# HealthySELFIE eHealthWallet
 Blockchain backed eHealth Wallet 
 
 As part of the Distributed-Health Hackathon on Oct 1, 2016. 
