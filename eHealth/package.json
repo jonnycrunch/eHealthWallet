@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:3001/",
+  "proxy": "http://750620da.ngrok.io:3001/",
   "name": "eHealth",
   "version": "0.1.0",
   "private": true,
